@@ -15,8 +15,6 @@ class CharInfo extends Component{
         error: false
     }
 
-    
-
     marvelService = new MarvelService();
 
     componentDidMount() {
