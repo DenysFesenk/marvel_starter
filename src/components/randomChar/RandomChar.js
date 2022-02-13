@@ -9,12 +9,12 @@ import mjolnir from '../../resources/img/mjolnir.png';
 const RandomChar = () => {
     const [char, setChar] = useState({});  
 
-    const {loading, error, getCharacter} = useMarvelService();
+    const {loading, error, getCharacter, clearError} = useMarvelService();
 
     useEffect(() => {
         updateChar();
         const timerId = setInterval(updateChar, 60000);
-
+ 
         return () => {
             clearInterval(timerId)
         }
@@ -25,6 +25,7 @@ const RandomChar = () => {
     }
 
     const updateChar = () => {
+        clearError();
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
         getCharacter(id)
             .then(onCharLoaded)
@@ -47,7 +48,7 @@ const RandomChar = () => {
                 <p className="randomchar__title">
                     Or choose another one
                 </p>
-                <button className="button button__main">
+                <button onClick={updateChar} className="button button__main">
                     <div className="inner">try it</div>
                 </button>
                 <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
